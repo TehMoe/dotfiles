@@ -33,3 +33,8 @@ brew 'watchman'
 brew 'wget'
 brew 'zsh'
 brew 'zsh-syntax-highlighting'
+
+# Taps
+tap 'homebrew/dupes'
+tap 'homebrew/versions'
+tap 'homebrew/homebrew-php'
