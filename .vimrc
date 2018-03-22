@@ -9,8 +9,6 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'scrooloose/nerdTree'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'junegunn/fzf'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'pangloss/vim-javascript'
@@ -20,6 +18,8 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'rakr/vim-one'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'itchyny/lightline.vim'
+Plugin 'ajh17/Spacegray.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -28,7 +28,6 @@ Plugin 'VundleVim/Vundle.vim'
 
 syntax on
 colorscheme onedark
-let g:airline_theme='one'
 
 "set rtp+=~/.fzf
 "set rtp+=~/usr/local/Cellar/fzf/0.12.0
@@ -54,9 +53,15 @@ set tabstop=4
 set expandtab
 set smarttab
 
-" Airline
-let g:airline#extensions#tabline#enabled = 1
+"BS past autoindents, line boundaries, and even the start of insertion
+set backspace=indent,eol,start
+
+" LightLine
 set laststatus=2
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ }
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -74,3 +79,14 @@ if (empty($TMUX))
   endif
 endif
 
+function! SetupEnvironment()
+  let l:path = expand('%:p')
+  if l:path =~ '/Users/mmohamed/Projects/emporio'
+    setlocal tabstop=2 shiftwidth=2 expandtab smarttab
+  elseif l:path =~ '/Users/mmohamed/Projects/admin'
+    setlocal tabstop=2 shiftwidth=2 noexpandtab
+  elseif l:path =~ '/Users/mmohamed/Projects'
+    setlocal tabstop=4 shiftwidth=4
+  endif
+endfunction
+autocmd! BufReadPost,BufNewFile * call SetupEnvironment()
