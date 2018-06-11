@@ -26,9 +26,6 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 Plugin 'VundleVim/Vundle.vim'
 
-syntax on
-colorscheme onedark
-
 "set rtp+=~/.fzf
 "set rtp+=~/usr/local/Cellar/fzf/0.12.0
 "set rtp+=~/.fzf.bash
@@ -39,7 +36,7 @@ let $FZF_DEFAULT_COMMAND = 'ag -l --ignore=node_modules --ignore=ansible-playboo
 " General
 set ruler
 set colorcolumn=120
-"highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
+highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 set hlsearch
 "set number
 set relativenumber
@@ -56,6 +53,11 @@ set smarttab
 "BS past autoindents, line boundaries, and even the start of insertion
 set backspace=indent,eol,start
 
+" Theme
+syntax on
+set background=dark
+colorscheme onedark
+
 " LightLine
 set laststatus=2
 set noshowmode
@@ -69,7 +71,7 @@ let g:lightline = {
 if (empty($TMUX))
   if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   endif
   "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
   "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
