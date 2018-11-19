@@ -10,26 +10,31 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'scrooloose/nerdTree'
 Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'mileszs/ack.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'rakr/vim-one'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'itchyny/lightline.vim'
 Plugin 'ajh17/Spacegray.vim'
+Plugin 'sbdchd/neoformat'
+Plugin 'tpope/vim-surround'
+Plugin 'rainglow/vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 Plugin 'VundleVim/Vundle.vim'
 
-"set rtp+=~/.fzf
+" set rtp+=~/.fzf
 "set rtp+=~/usr/local/Cellar/fzf/0.12.0
 "set rtp+=~/.fzf.bash
 "set rtp+=~/.fzf.zsh
+" set rtp+=/usr/local/opt/fzf
+
 nnoremap <C-p> :FZF<CR>
 let $FZF_DEFAULT_COMMAND = 'ag -l --ignore=node_modules --ignore=ansible-playbooks'
 
@@ -41,7 +46,6 @@ set hlsearch
 "set number
 set relativenumber
 " set cmdheight=2
-set t_Co=256
 set so=999
 
 " Spacing
@@ -54,9 +58,12 @@ set smarttab
 set backspace=indent,eol,start
 
 " Theme
-syntax on
+syntax enable
 set background=dark
-colorscheme onedark
+colorscheme overflow
+set termguicolors
+set t_Co=256
+
 
 " LightLine
 set laststatus=2
@@ -64,6 +71,15 @@ set noshowmode
 let g:lightline = {
       \ 'colorscheme': 'one',
       \ }
+
+" YCM fix
+let g:ycm_path_to_python_interpreter="/usr/bin/python"
+
+" Format on save
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -76,9 +92,6 @@ if (empty($TMUX))
   "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
   "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
   " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
 endif
 
 function! SetupEnvironment()
